@@ -21,6 +21,22 @@
                             <th style="width: 40px"></th>
                         </tr>
                         </thead>
+                        <tbody>
+                            @foreach (var medico in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @medico.CRM
+                                    </td>
+                                    <td>
+                                        @medico.Name
+                                    </td>
+                                    <td>
+                                        <a href="/Medicos/Editar/@medico.Id" class="btn btn-info">Editar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>
