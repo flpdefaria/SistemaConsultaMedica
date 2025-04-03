@@ -55,17 +55,28 @@
                     </table>
                 </div>
                 <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        @if (ViewBag.NumeroPagina > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina - 1 })">
-                                    TEste
-                                </a>
-                            </li>
-                        }
-                        <li class="page-item page-link">Página @ViewBag.NumeroPagina de @ViewBag.TotalPaginas</li>
-                    </ul>
+                   @if (ViewBag.TotalPaginas > 0)
+                   {
+                       <ul class="pagination pagination-sm m-0 float-right">
+                           @if (ViewBag.NumeroPagina > 1)
+                           {
+                               <li class="page-item">
+                                   <a class="page-link" href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina - 1 })">
+                                       &laquo; 
+                                   </a>
+                               </li>
+                           }
+                           <li class="page-item page-link">Página @ViewBag.NumeroPagina de @ViewBag.TotalPaginas</li>
+                           @if (ViewBag.NumeroPagina < @ViewBag.TotalPaginas)
+                           {
+                               <li class="page-item">
+                                   <a class="page-link" href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina + 1 })">
+                                       &raquo;
+                                   </a>
+                               </li>
+                           }
+                       </ul>
+                   }
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ public class MedicosController : Controller
 {
     // GET
     private readonly SisMedContext _context;
-    private const int tamanho_pagina = 10;
+    private const int tamanhoPagina = 10;
     public MedicosController(SisMedContext context)
     {
         _context = context;
@@ -26,8 +26,8 @@ public class MedicosController : Controller
         
         ViewBag.Filtro = filtro;
         ViewBag.NumeroPagina = pagina;
-        ViewBag.TotalPaginas = Math.Ceiling((decimal)medicos.Count() / tamanho_pagina);
+        ViewBag.TotalPaginas = Math.Ceiling((decimal)medicos.Count() / tamanhoPagina);
         
-        return View(medicos.Skip((pagina - 1) * tamanho_pagina).Take(tamanho_pagina));
+        return View(medicos.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina));
     }
 }
