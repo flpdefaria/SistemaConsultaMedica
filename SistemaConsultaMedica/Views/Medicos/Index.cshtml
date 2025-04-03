@@ -47,12 +47,25 @@
                                     @medico.Name
                                 </td>
                                 <td>
-                                    <a href="/Medicos/Editar/@medico.Id" class="btn btn-info">Editar</a>
+                                    <a href="/Medicos/Editar/@medico.Id" class="btn btn-sm btn-info">Editar</a>
                                 </td>
                             </tr>
                         }
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                        @if (ViewBag.NumeroPagina > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina - 1 })">
+                                    TEste
+                                </a>
+                            </li>
+                        }
+                        <li class="page-item page-link">Página @ViewBag.NumeroPagina de @ViewBag.TotalPaginas</li>
+                    </ul>
                 </div>
             </div>
         </div>
