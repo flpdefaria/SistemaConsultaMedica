@@ -30,4 +30,9 @@ public class MedicosController : Controller
         
         return View(medicos.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina));
     }
+
+    public IActionResult Adicionar()
+    {
+        return View();
+    }
 }
