@@ -19,10 +19,12 @@
                         <div class="form-group">
                             <label class="control-label">CRM</label>
                             <input asp-for="CRM" class="form-control">
+                            <span asp-validation-for="CRM" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nome</label>
                             <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="card-footer text-right">
