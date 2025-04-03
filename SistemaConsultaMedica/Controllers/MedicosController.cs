@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaConsultaMedica.Models.Contexts;
+using SistemaConsultaMedica.Models.Entities;
 using SistemaConsultaMedica.ViewModels.Medicos;
 
 namespace SistemaConsultaMedica.Controllers;
@@ -34,5 +35,20 @@ public class MedicosController : Controller
     public IActionResult Adicionar()
     {
         return View();
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Adicionar(AdicionarMedicoViewModel dados)
+    {
+        var medico = new Medico
+        {
+            CRM = dados.CRM,
+            Name = dados.Name
+        };
+        
+        _context.Medicos.Add(medico);
+        _context.SaveChanges();
+        
+        return RedirectToAction(nameof(Index));
     }
 }
