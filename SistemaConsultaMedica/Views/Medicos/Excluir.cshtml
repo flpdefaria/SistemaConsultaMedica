@@ -1,40 +1,41 @@
-@model SistemaConsultaMedica.ViewModels.Medicos.EditarMedicoViewModel
+@model SistemaConsultaMedica.ViewModels.Medicos.ListarMedicoViewModel
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Editar Médicos</h1>
+                <h1>Excluir Médicos</h1>
             </div>
         </div>
     </div>
 </section>
 
 <section class="content">
+    <div class="alert alert-danger">
+        <span class="fas fa-warning"></span>
+        Deseja realmente excluir este cadastro?
+    </div>
     <div class="row">
         <div class="col-12">
-            <form asp-action="Editar">
-                <div class="card">
+            <form asp-action="Excluir">
+                <div class="card card-outline card-danger">
                     <div class="card-body">
                         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                         <div class="form-group">
                             <label class="control-label">CRM</label>
-                            <input asp-for="CRM" class="form-control">
+                            <input asp-for="CRM" class="form-control" readonly>
                             <span asp-validation-for="CRM" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nome</label>
-                            <input asp-for="Name" class="form-control">
+                            <input asp-for="Name" class="form-control" readonly>
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col">
-                                <a href="/medicos/excluir/@Model.Id" class="btn btn-danger btn-sm">Excluir</a>
-                            </div>
                             <div class="col text-right">
-                                <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                                <button class="btn btn-sm btn-danger" type="submit">Excluir</button>
                             </div>
                         </div>
                     </div>

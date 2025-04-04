@@ -114,4 +114,39 @@ public class MedicosController : Controller
         
         return NotFound();
     }
+    
+    public IActionResult Excluir(int id)
+    {
+        var medico = _context.Medicos.Find(id);
+        
+        if (medico != null)
+        {
+            return View(new ListarMedicoViewModel()
+            {
+                Id = medico.Id,
+                CRM = medico.CRM,
+                Name = medico.Name
+            });
+        }
+
+        return NotFound();
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Excluir(int id, EditarMedicoViewModel dados)
+    {
+        
+        var medico = _context.Medicos.Find(id);
+
+        if (medico != null)
+        {
+            _context.Medicos.Remove(medico);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+        
+        return NotFound();
+    }
 }
