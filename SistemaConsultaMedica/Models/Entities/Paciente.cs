@@ -1,6 +1,6 @@
 namespace SistemaConsultaMedica.Models.Entities;
 
-public class Pacientes
+public class Paciente
 {
     public int Id { get; set; }
 

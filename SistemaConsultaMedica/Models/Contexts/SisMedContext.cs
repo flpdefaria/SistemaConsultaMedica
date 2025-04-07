@@ -14,6 +14,7 @@ public class SisMedContext : DbContext
     }
 
     public DbSet<Medico> Medicos => Set<Medico>();
+    public DbSet<Paciente> Pacientes => Set<Paciente>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -23,5 +24,6 @@ public class SisMedContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MedicoConfiguration());
+        modelBuilder.ApplyConfiguration(new PacienteConfiguration());
     }
 }
