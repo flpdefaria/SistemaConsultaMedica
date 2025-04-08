@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using SistemaConsultaMedica.Models.Contexts;
 using SistemaConsultaMedica.Models.Entities;
-using SistemaConsultaMedica.Validators.Medicos;
 using SistemaConsultaMedica.ViewModels.Medicos;
 
 namespace SistemaConsultaMedica.Controllers;
