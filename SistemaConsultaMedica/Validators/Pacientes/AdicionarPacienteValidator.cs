@@ -9,7 +9,7 @@ public class AdicionarPacienteValidator : AbstractValidator<AdicionarPacienteVie
     public AdicionarPacienteValidator(SisMedContext context)
     {
         RuleFor(x => x.CPF).NotEmpty().WithMessage("CPF é obrigatório")
-            .MaximumLength(11).WithMessage("O CPF deve ter no máximo {MaxLength} caracteres.")
+            .MaximumLength(14).WithMessage("O CPF deve ter no máximo {MaxLength} caracteres.")
             .Must(cpf => !context.Pacientes.Any(p => p.CPF == cpf)).WithMessage("Este CPF já esta em uso.");
 
         RuleFor(x => x.Name).NotEmpty().WithMessage("Nome é obrigatório")
