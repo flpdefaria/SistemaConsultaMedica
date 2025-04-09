@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +56,7 @@ public class PacientesController : Controller
         
         var paciente = new Paciente
         {
-            CPF = dados.CPF,
+            CPF = Regex.Replace(dados.CPF, "[^0-9]", ""),
             Name = dados.Name,
             DataNascimento = dados.DataNascimento
         };
