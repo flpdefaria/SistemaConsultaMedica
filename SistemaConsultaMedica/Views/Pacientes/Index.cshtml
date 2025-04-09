@@ -1,4 +1,5 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<SistemaConsultaMedica.ViewModels.Pacientes.ListarPacienteViewModel>
+
 
 <section class="content-header">
     <div class="container-fluid">
@@ -18,7 +19,7 @@
                     <div class="d-flex justify-content-between">
                         <form asp-action="Index">
                             <div class="input-group input-group-sm" style="width: 300px;">
-                                <input type="text" class="form-control" placeholder="Buscar médico" name="filtro"
+                                <input type="text" class="form-control" placeholder="Buscar paciente" name="filtro"
                                        value="@ViewBag.Filtro">
 
                                 <div class="input-group-append">
@@ -28,7 +29,7 @@
                                 </div>
                             </div>
                         </form>
-                        <a href="/medicos/Adicionar" class="btn btn-outline-primary btn-sm">Novo paciente</a>
+                        <a href="/pacientes/Adicionar" class="btn btn-outline-primary btn-sm">Novo paciente</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
@@ -44,13 +45,13 @@
                         @foreach (var paciente in Model)
                         {
                             <tr>
-                                <td mask="999.999.999-99">@paciente.CPF
+                                <td mask="000.000.000-00">@paciente.CPF
                                 </td>
                                 <td>
                                     @paciente.Name
                                 </td>
                                 <td>
-                                    <a href="/medicos/Editar/@paciente.Id" class="btn btn-sm btn-secondary mr-1"
+                                    <a href="/pacientes/editar/@paciente.Id" class="btn btn-sm btn-secondary mr-1"
                                        title="Editar médico">
                                         <span class="fas fa-edit"></span>
                                     </a>
@@ -68,7 +69,7 @@
                             {
                                 <li class="page-item">
                                     <a class="page-link"
-                                       href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina - 1 })">
+                                       href="@Url.Action("Index", "Pacientes", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina - 1 })">
                                         &laquo;
                                     </a>
                                 </li>
@@ -78,7 +79,7 @@
                             {
                                 <li class="page-item">
                                     <a class="page-link"
-                                       href="@Url.Action("Index", "Medicos", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina + 1 })">
+                                       href="@Url.Action("Index", "Pacientes", new { Filtro = @ViewBag.Filtro, Pagina = @ViewBag.NumeroPagina + 1 })">
                                         &raquo;
                                     </a>
                                 </li>
