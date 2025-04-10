@@ -25,5 +25,9 @@ public class PacienteConfiguration : IEntityTypeConfiguration<Paciente>
 
         builder.Property(x => x.DataNascimento)
             .IsRequired();
+
+        builder.HasOne(p => p.InformacoesComplementares)
+            .WithOne(i => i.Paciente)
+            .HasForeignKey<InformacoesComplementaresPaciente>(i => i.IdPaciente);
     }   
 }
