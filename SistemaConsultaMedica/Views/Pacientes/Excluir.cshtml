@@ -1,0 +1,51 @@
+@model SistemaConsultaMedica.ViewModels.Pacientes.ListarPacienteViewModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Excluir Pacientes</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="alert alert-danger">
+        <span class="fas fa-warning"></span>
+        Deseja realmente excluir este cadastro?
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Excluir">
+                <div class="card card-outline card-danger">
+                    <div class="card-body">
+                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="CPF"></label>
+                            <input asp-for="CPF" class="form-control" mask="000.000.000-00" readonly>
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" readonly>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="DataNascimento"></label>
+                            <input asp-for="DataNascimento" class="form-control" readonly>
+                            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col text-right">
+                                <button class="btn btn-sm btn-danger" type="submit">Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
