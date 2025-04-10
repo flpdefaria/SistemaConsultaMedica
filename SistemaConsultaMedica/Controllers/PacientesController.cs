@@ -16,7 +16,8 @@ public class PacientesController : Controller
     private readonly IValidator<EditarPacienteViewModel> _editarPacienteValidator;
     private const int tamanhoPagina = 10;
 
-    public PacientesController(SisMedContext context, IValidator<AdicionarPacienteViewModel> adicionarPacienteValidator, IValidator<EditarPacienteViewModel> editarPacienteValidator)
+    public PacientesController(SisMedContext context, IValidator<AdicionarPacienteViewModel> adicionarPacienteValidator,
+        IValidator<EditarPacienteViewModel> editarPacienteValidator)
     {
         _context = context;
         _adicionarPacienteValidator = adicionarPacienteValidator;
@@ -76,7 +77,9 @@ public class PacientesController : Controller
 
         if (paciente != null)
         {
-            var informacoesComplementares = _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
+            var informacoesComplementares =
+                _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
+
             return View(new EditarPacienteViewModel
             {
                 Id = paciente.Id,
@@ -112,6 +115,30 @@ public class PacientesController : Controller
             paciente.Name = dados.Name;
             paciente.DataNascimento = dados.DataNascimento;
 
+            var informacoesComplementares =
+                _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
+
+            if (informacoesComplementares == null)
+            {
+                informacoesComplementares = new InformacoesComplementaresPaciente();
+                informacoesComplementares.IdPaciente = id;
+                _context.InformacoesComplementaresPaciente.Add(informacoesComplementares);
+            }
+
+            informacoesComplementares.Alergias = dados.Alergias;
+            informacoesComplementares.MedicamentosEmUso = dados.MedicamentosEmUso;
+            informacoesComplementares.CirurgiasRealizadas = dados.CirurgiasRealizadas;
+            informacoesComplementares.IdPaciente = id;
+
+            if (informacoesComplementares.Id > 0)
+            {
+                _context.InformacoesComplementaresPaciente.Update(informacoesComplementares);
+            }
+            else
+            {
+                _context.InformacoesComplementaresPaciente.Add(informacoesComplementares);
+            }
+
             _context.Pacientes.Update(paciente);
             _context.SaveChanges();
 
@@ -137,22 +164,21 @@ public class PacientesController : Controller
 
         return NotFound();
     }
-    
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    
     public IActionResult Excluir(int id, EditarPacienteViewModel dados)
     {
         var paciente = _context.Pacientes.Find(id);
-        
+
         if (paciente != null)
         {
             _context.Pacientes.Remove(paciente);
             _context.SaveChanges();
-            
+
             return RedirectToAction(nameof(Index));
         }
-        
+
         return NotFound();
     }
 }
