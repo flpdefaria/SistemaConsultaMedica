@@ -1,0 +1,50 @@
+@model SistemaConsultaMedica.ViewModels.Pacientes.EditarPacienteViewModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Editar Pacientes</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Editar">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="CPF"></label>
+                            <input asp-for="CPF" class="form-control">
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="DataNascimento"></label>
+                            <input asp-for="DataNascimento" class="form-control">
+                            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col">
+                                <a href="/pacientes/excluir/@Model.Id" class="btn btn-danger btn-sm">Excluir</a>
+                            </div>
+                            <div class="col text-right">
+                                <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
