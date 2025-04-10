@@ -6,6 +6,7 @@ using SistemaConsultaMedica.Models.Contexts;
 using SistemaConsultaMedica.Models.Entities;
 using SistemaConsultaMedica.ViewModels.Pacientes;
 
+
 namespace SistemaConsultaMedica.Controllers;
 
 public class PacientesController : Controller
@@ -75,12 +76,16 @@ public class PacientesController : Controller
 
         if (paciente != null)
         {
+            var informacoesComplementares = _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
             return View(new EditarPacienteViewModel
             {
                 Id = paciente.Id,
                 CPF = paciente.CPF,
                 Name = paciente.Name,
-                DataNascimento = paciente.DataNascimento
+                DataNascimento = paciente.DataNascimento,
+                Alergias = informacoesComplementares?.Alergias,
+                MedicamentosEmUso = informacoesComplementares?.MedicamentosEmUso,
+                CirurgiasRealizadas = informacoesComplementares?.CirurgiasRealizadas
             });
         }
 

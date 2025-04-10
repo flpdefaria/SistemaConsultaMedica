@@ -15,6 +15,7 @@ public class SisMedContext : DbContext
 
     public DbSet<Medico> Medicos => Set<Medico>();
     public DbSet<Paciente> Pacientes => Set<Paciente>();
+    public DbSet<InformacoesComplementaresPaciente> InformacoesComplementaresPaciente => Set<InformacoesComplementaresPaciente>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
