@@ -9,4 +9,6 @@ public class Paciente
     public string Name { get; set; } = string.Empty;
     
     public DateTime DataNascimento { get; set; }
+
+    public InformacoesComplementaresPaciente? InformacoesComplementares { get; set; }
 }
