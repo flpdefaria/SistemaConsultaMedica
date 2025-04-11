@@ -77,8 +77,7 @@ public class PacientesController : Controller
 
         if (paciente != null)
         {
-            var informacoesComplementares =
-                _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
+            var informacoesComplementares = _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
 
             return View(new EditarPacienteViewModel
             {
@@ -115,14 +114,11 @@ public class PacientesController : Controller
             paciente.Name = dados.Name;
             paciente.DataNascimento = dados.DataNascimento;
 
-            var informacoesComplementares =
-                _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
+            var informacoesComplementares = _context.InformacoesComplementaresPaciente.FirstOrDefault(x => x.IdPaciente == id);
 
             if (informacoesComplementares == null)
             {
                 informacoesComplementares = new InformacoesComplementaresPaciente();
-                informacoesComplementares.IdPaciente = id;
-                _context.InformacoesComplementaresPaciente.Add(informacoesComplementares);
             }
 
             informacoesComplementares.Alergias = dados.Alergias;
