@@ -17,7 +17,7 @@ public class EditarPacienteViewModel
     
     public string? Alergias { get; set; }
     
-    [Display(Name = "Medimcamentos em Uso")]
+    [Display(Name = "Medicamentos em Uso")]
     public string? MedicamentosEmUso { get; set; }
     
     [Display(Name = "Cirurgias Realizadas")]
