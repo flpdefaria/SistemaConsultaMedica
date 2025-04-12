@@ -1,9 +1,11 @@
 using FluentValidation;
 using SistemaConsultaMedica.Models.Contexts;
 using SistemaConsultaMedica.Validators.Medicos;
+using SistemaConsultaMedica.Validators.MonitoramentoPaciente;
 using SistemaConsultaMedica.Validators.Pacientes;
 using SistemaConsultaMedica.ViewModels.Pacientes;
 using SistemaConsultaMedica.ViewModels.Medicos;
+using SistemaConsultaMedica.ViewModels.MonitoramentoPaciente;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddScoped<IValidator<AdicionarMedicoViewModel>, AdicionarMedico
 builder.Services.AddScoped<IValidator<EditarMedicoViewModel>, EditarMedicoValidator>();
 builder.Services.AddScoped<IValidator<AdicionarPacienteViewModel>, AdicionarPacienteValidator>();
 builder.Services.AddScoped<IValidator<EditarPacienteViewModel>, EditarPacienteValidator>();
+builder.Services.AddScoped<IValidator<AdicionarMonitoramentoViewModel>, AdicionarMonitoramentoValidator>();
 
 var app = builder.Build();
 
