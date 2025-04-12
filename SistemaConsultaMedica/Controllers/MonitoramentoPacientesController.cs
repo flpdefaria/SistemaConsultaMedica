@@ -17,6 +17,7 @@ public class MonitoramentoPacientesController : Controller
     
     public IActionResult Index(int idPaciente)
     {
+        ViewBag.IdPaciente = idPaciente;
         var monitoramentos = _context.MonitoriamentoPaciente
             .Where(x => x.IdPaciente == idPaciente)
             .Select(x => new ListarMonitoramentoViewModel
@@ -30,5 +31,11 @@ public class MonitoramentoPacientesController : Controller
             });
         
         return View(monitoramentos);
+    }
+    
+    [Route("Adicionar")]
+    public IActionResult Adicionar(int idPaciente)
+    {
+        return View();
     }
 }
