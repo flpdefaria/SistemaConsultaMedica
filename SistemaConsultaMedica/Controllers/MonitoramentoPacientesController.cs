@@ -73,4 +73,26 @@ public class MonitoramentoPacientesController : Controller
         
         return RedirectToAction(nameof(Index), new { idPaciente});
     }
+
+    [Route("Editar/{id}")]
+    public IActionResult Editar(int id)
+    {
+        var monitoramento = _context.MonitoriamentoPaciente.Find(id);
+
+        if (monitoramento != null)
+        {
+            return View(new EditarMonitoramentoViewModel
+            {
+                Id = monitoramento.Id,
+                PressaoArterial = monitoramento.PressaoArterial,
+                SaturacaoOxigenio = monitoramento.SaturacaoOxigenio,
+                Temperatura = monitoramento.Temperatura,
+                FrequenciaCardiaca = monitoramento.FrequenciaCardiaca,
+                DataAfericao = monitoramento.DataAfericao,
+            });
+        }
+        
+        return NotFound();
+    }
+    
 }
