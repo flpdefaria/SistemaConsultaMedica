@@ -75,6 +75,7 @@ public class MonitoramentoPacientesController : Controller
     }
 
     [Route("Editar/{id}")]
+    
     public IActionResult Editar(int id)
     {
         var monitoramento = _context.MonitoriamentoPaciente.Find(id);
