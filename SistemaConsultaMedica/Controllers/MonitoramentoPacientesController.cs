@@ -9,17 +9,22 @@ using SistemaConsultaMedica.ViewModels.MonitoramentoPaciente;
 namespace SistemaConsultaMedica.Controllers;
 
 [Route("Monitoramento")]
-    
+
 public class MonitoramentoPacientesController : Controller
 {
     private readonly SisMedContext _context;
     private readonly IValidator<AdicionarMonitoramentoViewModel> _adicionarMonitoramentoValidator;
-    public MonitoramentoPacientesController(SisMedContext context, IValidator<AdicionarMonitoramentoViewModel> adicionarMonitoramentoValidator)
+    private readonly IValidator<EditarMonitoramentoViewModel> _editarMonitoramentoValidator;
+
+    public MonitoramentoPacientesController(SisMedContext context,
+        IValidator<AdicionarMonitoramentoViewModel> adicionarMonitoramentoValidator,
+        IValidator<EditarMonitoramentoViewModel> editarMonitoramentoValidator)
     {
         _context = context;
         _adicionarMonitoramentoValidator = adicionarMonitoramentoValidator;
+        _editarMonitoramentoValidator = editarMonitoramentoValidator;
     }
-    
+
     public IActionResult Index(int idPaciente)
     {
         ViewBag.IdPaciente = idPaciente;
@@ -34,17 +39,17 @@ public class MonitoramentoPacientesController : Controller
                 FrequenciaCardiaca = x.FrequenciaCardiaca,
                 DataAfericao = x.DataAfericao
             });
-        
+
         return View(monitoramentos);
     }
-    
+
     [Route("Adicionar")]
     public IActionResult Adicionar(int idPaciente)
     {
         ViewBag.IdPaciente = idPaciente;
         return View();
     }
-    
+
     [Route("Adicionar")]
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -70,12 +75,11 @@ public class MonitoramentoPacientesController : Controller
 
         _context.MonitoriamentoPaciente.Add(monitoramento);
         _context.SaveChanges();
-        
-        return RedirectToAction(nameof(Index), new { idPaciente});
+
+        return RedirectToAction(nameof(Index), new { idPaciente });
     }
 
     [Route("Editar/{id}")]
-    
     public IActionResult Editar(int id)
     {
         var monitoramento = _context.MonitoriamentoPaciente.Find(id);
@@ -92,8 +96,38 @@ public class MonitoramentoPacientesController : Controller
                 DataAfericao = monitoramento.DataAfericao,
             });
         }
-        
+
         return NotFound();
     }
-    
+
+    [Route("Editar/{id}")]
+    [HttpPost]
+    public IActionResult Editar(int id, EditarMonitoramentoViewModel dados)
+    {
+        var validacao = _editarMonitoramentoValidator.Validate(dados);
+
+        if (!validacao.IsValid)
+        {
+            validacao.AddToModelState(ModelState, string.Empty);
+            return View(dados);
+        }
+
+        var monitoramento = _context.MonitoriamentoPaciente.Find(id);
+
+        if (monitoramento != null)
+        {
+            monitoramento.PressaoArterial = dados.PressaoArterial;
+            monitoramento.SaturacaoOxigenio = dados.SaturacaoOxigenio;
+            monitoramento.Temperatura = dados.Temperatura;
+            monitoramento.FrequenciaCardiaca = dados.FrequenciaCardiaca;
+            monitoramento.DataAfericao = dados.DataAfericao;
+
+            _context.MonitoriamentoPaciente.Update(monitoramento);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index), new { monitoramento.IdPaciente });
+        }
+
+        return NotFound();
+    }
 }
