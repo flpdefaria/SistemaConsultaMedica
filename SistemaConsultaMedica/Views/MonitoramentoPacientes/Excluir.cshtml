@@ -1,60 +1,49 @@
-@model SistemaConsultaMedica.ViewModels.MonitoramentoPaciente.EditarMonitoramentoViewModel
+@model SistemaConsultaMedica.ViewModels.MonitoramentoPaciente.ListarMonitoramentoViewModel
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Editar registro de siniais vitais</h1>
+                <h1>Excluir registro de siniais vitais</h1>
             </div>
         </div>
     </div>
 </section>
 
 <section class="content">
-    <div class="alert alert-danger">
-        <span class="fas fa-warning"></span>
-        Deseja realmente excluir este registro?
-    </div>
     <div class="row">
         <div class="col-12">
-            <form asp-action="Editar" asp-route-idPaciente="@ViewBag.IdPaciente">
-                <div class="card card-outline card-danger">
+            <form asp-action="Excluir">
+                <div class="card">
                     <div class="card-body">
                         <div class="form-group">
                             <label class="control-label" asp-for="PressaoArterial"></label>
-                            <input asp-for="PressaoArterial" class="form-control" mask="000.000.000-00">
+                            <input asp-for="PressaoArterial" class="form-control" mask="000.000.000-00" readonly>
                             <span asp-validation-for="PressaoArterial" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" asp-for="Temperatura"></label>
-                            <input asp-for="Temperatura" class="form-control">
+                            <input asp-for="Temperatura" class="form-control" readonly>
                             <span asp-validation-for="Temperatura" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" asp-for="FrequenciaCardiaca"></label>
-                            <input asp-for="FrequenciaCardiaca" class="form-control">
+                            <input asp-for="FrequenciaCardiaca" class="form-control" readonly>
                             <span asp-validation-for="FrequenciaCardiaca" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" asp-for="SaturacaoOxigenio"></label>
-                            <input asp-for="SaturacaoOxigenio" class="form-control">
+                            <input asp-for="SaturacaoOxigenio" class="form-control" readonly>
                             <span asp-validation-for="SaturacaoOxigenio" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" asp-for="DataAfericao"></label>
-                            <input asp-for="DataAfericao" class="form-control">
+                            <input asp-for="DataAfericao" class="form-control" readonly>
                             <span asp-validation-for="DataAfericao" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <div class="row">
-                            <div class="col text-left">
-                                <a href="/monitoramento/excluir/@Model.Id" class="btn btn-sm btn-danger" type="submit">Excluir</a>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-sm btn-primary" type="submit">Salvar</button>
-                            </div>
-                        </div>
+                        <button class="btn btn-sm btn-danger" type="submit">Excluir</button>
                     </div>
                 </div>
             </form>
