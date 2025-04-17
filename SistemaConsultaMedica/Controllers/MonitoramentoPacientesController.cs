@@ -151,5 +151,23 @@ public class MonitoramentoPacientesController : Controller
 
         return NotFound();
     }
-    
+
+    [Route("Excluir/{id}")]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Excluir(int id, ListarMonitoramentoViewModel dados)
+    {
+        var monitoramento = _context.MonitoriamentoPaciente.Find(id);
+
+        if (monitoramento != null)
+        {
+            _context.MonitoriamentoPaciente.Remove(monitoramento);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index), new { monitoramento.IdPaciente});
+        }
+
+        return NotFound();
+    }
+
 }
