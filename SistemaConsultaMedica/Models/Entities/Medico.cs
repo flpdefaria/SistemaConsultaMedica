@@ -7,5 +7,7 @@
         public string CRM { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
+
+        public ICollection<Consulta> Consultas { get; set; } = null!;
     }
 }

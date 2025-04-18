@@ -13,4 +13,6 @@ public class Paciente
     public InformacoesComplementaresPaciente? InformacoesComplementares { get; set; }
 
     public ICollection<MonitoriamentoPaciente> Monitoramentos { get; set; } = null!;
+    
+    public ICollection<Consulta> Consultas { get; set; } = null!;
 }

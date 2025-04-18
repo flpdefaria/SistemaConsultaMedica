@@ -17,6 +17,7 @@ public class SisMedContext : DbContext
     public DbSet<Paciente> Pacientes => Set<Paciente>();
     public DbSet<InformacoesComplementaresPaciente> InformacoesComplementaresPaciente => Set<InformacoesComplementaresPaciente>();
     public DbSet<MonitoriamentoPaciente> MonitoriamentoPaciente => Set<MonitoriamentoPaciente>();
+    public DbSet<Consulta> Consultas => Set<Consulta>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -29,5 +30,6 @@ public class SisMedContext : DbContext
         modelBuilder.ApplyConfiguration(new PacienteConfiguration());
         modelBuilder.ApplyConfiguration(new InformacoesComplementaresPacienteConfiguration());
         modelBuilder.ApplyConfiguration(new MonitoramentoPacienteConfiguration());
+        modelBuilder.ApplyConfiguration(new ConsultaConfiguration());
     }
 }
