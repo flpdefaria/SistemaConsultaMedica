@@ -65,11 +65,29 @@
                                     <p>Médicos</p>
                                 </a>
                             </li>
-                        </ul><ul class="nav nav-treeview">
+                        </ul>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="/pacientes" class="nav-link">
                                     <i class="fas fa-user nav-icon"></i>
                                     <p>Pacientes</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-laptop-medical"></i>
+                            <p>
+                                Operações
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/consultas" class="nav-link">
+                                    <i class="fas fa-notes-medical nav-icon"></i>
+                                    <p>Consultas</p>
                                 </a>
                             </li>
                         </ul>
@@ -110,10 +128,10 @@
 <script src="~/js/adminlte.min.js"></script>
 <script src="~/js/jquery.mask.min.js"></script>
 <script>
-    $(function (){
-       $('[mask]').each(function(e){
-           $(this).mask($(this).attr('mask'));
-       }); 
+    $(function () {
+        $('[mask]').each(function (e) {
+            $(this).mask($(this).attr('mask'));
+        });
     });
 </script>
 </body>
