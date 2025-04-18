@@ -45,13 +45,9 @@
                         @foreach (var c in Model)
                         {
                             <tr>
-                                <td mask="000.000.000-00">@c.Data.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    @c.Paciente
-                                </td>
-                                <td>
-                                    @c.Medico
-                                </td>
+                                <td>@c.Data.ToString("dd/MM/yyyy")</td>
+                                <td>@c.Paciente</td>
+                                <td>@c.Medico</td>
                                 <td>
                                     <a href="/consultas/editar/@c.Id" class="btn btn-sm btn-secondary mr-1"
                                        title="Editar consulta">
