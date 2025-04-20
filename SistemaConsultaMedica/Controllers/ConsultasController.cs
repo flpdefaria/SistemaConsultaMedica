@@ -1,7 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaConsultaMedica.Models.Contexts;
+using SistemaConsultaMedica.Models.Entities;
 using SistemaConsultaMedica.Models.Enums;
 using SistemaConsultaMedica.ViewModels.Consultas;
 
@@ -10,11 +13,14 @@ namespace SistemaConsultaMedica.Controllers;
 public class ConsultasController : Controller
 {
     private readonly SisMedContext _context;
+    private readonly IValidator<AdicionarConsultaViewModel> _adicionarConsultaValidator;
+    
     private const int tamanhoPagina = 10;
 
-    public ConsultasController(SisMedContext context)
+    public ConsultasController(SisMedContext context, IValidator<AdicionarConsultaViewModel> adicionarConsultaValidator)
     {
         _context = context;
+        _adicionarConsultaValidator = adicionarConsultaValidator;
     }
 
     public IActionResult Index(string filtro, int pagina = 1)
@@ -49,5 +55,40 @@ public class ConsultasController : Controller
         
         ViewBag.Medicos = _context.Medicos.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });
         return View();
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Adicionar(AdicionarConsultaViewModel dados)
+    {
+
+        var validacao = _adicionarConsultaValidator.Validate(dados);
+
+        if (!validacao.IsValid)
+        {
+            ViewBag.TiposConsulta = new[]
+            {
+                new SelectListItem { Text = "Eletiva", Value = TipoConsulta.Eletiva.ToString() },
+                new SelectListItem { Text = "Urgência", Value = TipoConsulta.Urgencia.ToString() },
+            };
+        
+            ViewBag.Medicos = _context.Medicos.OrderBy(x => x.Name).Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });
+            
+            validacao.AddToModelState(ModelState, string.Empty);
+            return View(dados);
+        }
+
+        var consulta = new Consulta
+        {
+            Data = dados.Data,
+            IdPaciente = dados.IdPaciente,
+            IdMedico = dados.IdMedico,
+            Tipo = dados.Tipo
+        };
+
+        _context.Consultas.Add(consulta);
+        _context.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
     }
 }
