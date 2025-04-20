@@ -37,7 +37,8 @@
                                 <input type="text" class="form-control" placeholder="Buscar paciente" id="NomePaciente"
                                        readonly>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="BtnBuscarPaciente" data-toggle="modal" data-target="#ModalPacientes">
+                                    <button type="button" class="btn btn-default" id="BtnBuscarPaciente"
+                                            data-toggle="modal" data-target="#ModalPacientes">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
@@ -93,3 +94,42 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        function buscarPacientes() {
+            if ($("#TxtFiltro").val().trim().length > 0) {
+                $.getJSON("/Pacientes/Buscar", {filtro: $("#TxtFiltro").val()}, function (resultado) {
+                    if (resultado.length > 0) {
+                        var linhas = resultado.map(x => "<tr data-dismiss='modal' style='cursor:pointer;' title='Clique para selecioar' data-id='" + x.id + "'><td mask='999.999" +
+                            "999-99'>" + x.cpf + "</td><td>" + x.name + "</td></tr>").join("");
+                        $("#TbPacientes tbody").html(linhas);
+                        $("td[mask]").each(function (e) {
+                            $(this).mask($(this).attr('mask'));
+                        });
+                        $("#TbPacientes tbody tr").click(function () {
+                            var id = $(this).attr("data-id");
+                            var name = $(this).children()[1].innerText;
+                            $("#IdPaciente").val(id);
+                            $("#NomePaciente").val(name);
+                        });
+                        $("#TbPacientes").removeClass("d-none");
+                        $("#DivMensagem").addClass("d-none");
+                    } else {
+                        $("#TbPacientes").addClass("d-none");
+                        $("#DivMensagem").removeClass("d-none");
+                    }
+                });
+            }
+        }
+        $("#TxtFiltro").keypress(function (e) {
+            if (e.keyCode == 13) {
+                buscarPacientes();
+            }
+        });
+        
+        $("#BtnBuscar").click(function () {
+            buscarPacientes();
+        });
+    </script>
+}

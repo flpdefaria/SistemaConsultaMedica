@@ -177,4 +177,19 @@ public class PacientesController : Controller
 
         return NotFound();
     }
+
+    public IActionResult Buscar(string filtro)
+    {
+        var pacientes = _context.Pacientes
+            .Where(x => x.Name.Contains(filtro) || x.CPF.Contains(filtro))
+            .Take(10)
+            .Select(x => new ListarPacienteViewModel
+            {
+                Id = x.Id,
+                CPF = x.CPF,
+                Name = x.Name
+            });
+
+        return Json(pacientes);
+    }
 }
