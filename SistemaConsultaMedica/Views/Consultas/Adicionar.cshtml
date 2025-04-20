@@ -32,18 +32,18 @@
                             <span asp-validation-for="IdMedico" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" asp-for="IdPaciente"></label>
+                            <label asp-for="IdPaciente" class="control-label"></label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Buscar paciente" id="NomePaciente"
                                        readonly>
                                 <div class="input-group-append">
-                                    <button class="btn btn-default" id="BtnBuscarPaciente" data-toggle="modal" data-target="#ModalPacientes">
+                                    <button type="button" class="btn btn-default" id="BtnBuscarPaciente" data-toggle="modal" data-target="#ModalPacientes">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                                <input type="hidden" asp-for="IdPaciente" class="form-control" id="IdPaciente">
-                                <span asp-validation-for="IdPaciente" class="text-danger"></span>
                             </div>
+                            <input type="hidden" asp-for="IdPaciente" class="form-control" id="IdPaciente">
+                            <span asp-validation-for="IdPaciente" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="card-footer text-right">
@@ -63,7 +63,7 @@
                     Buscar paciente
                 </h5>
                 <button class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -81,8 +81,8 @@
                 </div>
                 <table class="table table-hover table-sm d-none" id="TbPacientes">
                     <thead>
-                        <th style="width:150px">CPF</th>
-                        <th>Nome</th>
+                    <th style="width:150px">CPF</th>
+                    <th>Nome</th>
                     </thead>
                     <tbody>
 
