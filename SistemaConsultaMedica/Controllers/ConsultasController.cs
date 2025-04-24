@@ -27,10 +27,18 @@ public class ConsultasController : Controller
 
     public IActionResult Index(string filtro, int pagina = 1)
     {
-        var consultas = _context.Consultas
+        var query = _context.Consultas
             .Include(c => c.Paciente)
             .Include(c => c.Medico)
-            .Where(c => c.Paciente.Name.Contains(filtro) || c.Medico.Name.Contains(filtro))
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filtro))
+        {
+            query = query.Where(c => c.Paciente.Name.Contains(filtro) || c.Medico.Name.Contains(filtro));
+        }
+
+        var consultas = query
+            .OrderBy(c => c.Data)
             .Select(c => new ListarConsultaViewModel
             {
                 Id = c.Id,
@@ -40,10 +48,16 @@ public class ConsultasController : Controller
                 Tipo = c.Tipo == TipoConsulta.Eletiva ? "Eletiva" : "Urgencia"
             });
 
+        ViewBag.Filtro = filtro;
         ViewBag.NumeroPagina = pagina;
         ViewBag.TotalPaginas = Math.Ceiling((decimal)consultas.Count() / tamanhoPagina);
-        
-        return View(consultas.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina));
+
+        var consultasPaginadas = consultas
+            .Skip((pagina - 1) * tamanhoPagina)
+            .Take(tamanhoPagina)
+            .ToList();
+
+        return View(consultasPaginadas);
     }
 
     public IActionResult Adicionar()
