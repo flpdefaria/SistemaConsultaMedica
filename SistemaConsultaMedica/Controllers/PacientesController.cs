@@ -26,8 +26,14 @@ public class PacientesController : Controller
 
     public IActionResult Index(string filtro, int pagina = 1)
     {
-        var pacientes = _context.Pacientes
-            .Where(x => x.Name.Contains(filtro) || x.CPF.Contains(filtro))
+        var query = _context.Pacientes.AsQueryable();
+        
+        if(!string.IsNullOrWhiteSpace(filtro))
+        {
+            query = query.OrderBy(x => x.Name).Where(x => x.Name.Contains(filtro) || x.CPF.Contains(filtro));
+        }
+        
+        var pacientes = query
             .Select(x => new ListarPacienteViewModel
             {
                 Id = x.Id,
@@ -38,7 +44,14 @@ public class PacientesController : Controller
         ViewBag.Filtro = filtro;
         ViewBag.NumeroPagina = pagina;
         ViewBag.TotalPaginas = Math.Ceiling((decimal)pacientes.Count() / tamanhoPagina);
-        return View(pacientes.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina));
+        
+        var pacientesPaginados = pacientes
+            .Skip((pagina - 1) * tamanhoPagina)
+            .Take(tamanhoPagina)
+            .ToList();
+        
+        return View(pacientesPaginados);
+        
     }
 
     public IActionResult Adicionar()

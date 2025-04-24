@@ -39,8 +39,6 @@ public class MedicosController : Controller
                 Name = x.Name
             });
 
-        int tamanhoPagina = 10; // ou outro valor apropriado
-
         ViewBag.Filtro = filtro;
         ViewBag.NumeroPagina = pagina;
         ViewBag.TotalPaginas = Math.Ceiling((decimal)medicos.Count() / tamanhoPagina);
