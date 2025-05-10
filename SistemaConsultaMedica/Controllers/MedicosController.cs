@@ -54,7 +54,7 @@ public class MedicosController : Controller
 
     public IActionResult Adicionar()
     {
-        return View();
+        return View()
     }
 
     [HttpPost]
